@@ -15,10 +15,22 @@ public class PhoneBook {
         return true;
     }
 
+    public boolean progressiveSolution(String[] phoneBook) {
+        for (int i = 0; i <phoneBook.length; i++) {
+            for (int j = i + 1; j < phoneBook.length; j++) {
+                if (phoneBook[i].startsWith(phoneBook[j])) { return false; }
+                if (phoneBook[j].startsWith(phoneBook[i])) { return false; }
+            }
+        }
+
+        return true;
+    }
+
     public static void main(String[] args) {
         PhoneBook phoneBook = new PhoneBook();
         String[] phone_book = {"119", "97674223", "1195524421"}; //"119", "97674223", "1195524421"   "123","456","789"
         System.out.println(phoneBook.solution(phone_book));
+        System.out.println(phoneBook.progressiveSolution(phone_book));
 
     }
 }
