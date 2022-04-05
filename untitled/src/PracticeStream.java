@@ -20,5 +20,17 @@ public class PracticeStream {
             int score = student.getScore();
             System.out.println(name + "-" + score);
         });
+
+        List<String> nameList = Arrays.asList(
+                "예제", "만드는중","호옹", "글쿤"
+        );
+        Stream<String> stringStream = nameList.stream();
+        stringStream.forEach(PracticeStream::print); //s->Sout(s)과 동일
+        Stream<String> parallelStream = nameList.parallelStream();
+        parallelStream.forEach(PracticeStream::print);
+    }
+
+    public static void print(String str) {
+        System.out.println(str+" - "+Thread.currentThread().getName());
     }
 }
