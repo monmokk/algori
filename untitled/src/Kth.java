@@ -21,6 +21,7 @@ public class Kth {
         int[] answer = new int[commands.length];
         for (int i = 0; i < commands.length; i++) {
             int[] tmp = Arrays.copyOfRange(arr, commands[i][0]-1, commands[i][1]);
+            //copyOfRange(복사할 원본 배열, 시작 인덱스, 마지막 인덱스)
             Arrays.sort(tmp);
             answer[i] = tmp[commands[i][2]-1];
         }
