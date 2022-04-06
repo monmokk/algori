@@ -39,11 +39,26 @@ public class PracticeStream {
         parallelStream.forEach(PracticeStream::print);
     }
 
+    void handlingStream() {
+        List<Student> students = Arrays.asList(
+                new Student("포동구리", 1),
+                new Student("포옹", 100),
+                new Student("꾸꾸", 100)
+        );
+
+        double avg = students.stream()
+                .mapToInt(Student::getScore)
+                .average()
+                .getAsDouble();
+        System.out.println(avg);
+    }
+
 
     public static void main(String[] args) {
         PracticeStream practiceStream = new PracticeStream();
         practiceStream.practiceStr1();
         practiceStream.practiceStrFor();
         practiceStream.practiceStrM();
+        practiceStream.handlingStream();
     }
 }
