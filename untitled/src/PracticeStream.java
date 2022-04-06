@@ -47,10 +47,15 @@ public class PracticeStream {
         );
 
         double avg = students.stream()
+                //학생 객체 숫자로 매핑
                 .mapToInt(Student::getScore)
+                //최종처리
                 .average()
                 .getAsDouble();
         System.out.println(avg);
+
+        Stream<Student> stream = students.stream();
+        stream.forEach(student -> System.out.println(student.getName()));
     }
 
 
