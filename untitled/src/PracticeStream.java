@@ -1,7 +1,5 @@
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.OptionalDouble;
+import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -148,16 +146,65 @@ public class PracticeStream {
                 .forEach(System.out::println); //forEach()는 최종메서드
     }
 
+    void doCustomize() {
+        //reduce 커스텀 집계
+        List<Student> students = Arrays.asList(
+                new Student("정꾸꾸", 90),
+                new Student("퐁꾸꾸", 89),
+                new Student("몽꾸꾸", 99)
+        );
+
+        int sum1 = students.stream()
+                .mapToInt(Student::getScore)
+                .sum();
+
+        System.out.println("sum1 : " + sum1);
+
+        int sum2 = students.stream()
+                .map(Student::getScore)
+                .reduce(Integer::sum)
+                .get();
+        System.out.println("sum2: " + sum2 );
+    }
+
+    void collectFilter() {
+        List<Student> studentList = Arrays.asList(
+                new Student("jjw", 10, Student.Sex.MALE),
+                new Student("mon", 9, Student.Sex.FEMALE),
+                new Student("pong", 7, Student.Sex.FEMALE)
+        );
+
+        List<Student> maleList = studentList.stream()
+                .filter(s -> s.getSex() == Student.Sex.MALE)
+                .collect(Collectors.toList());
+        maleList
+                .forEach(s -> System.out.println(s.getName()));
+
+        System.out.println();
+
+        Set<Student> femaleSet = studentList.stream()
+                .filter(s -> s.getSex() == Student.Sex.FEMALE)
+                .collect(Collectors.toCollection(HashSet::new));
+        femaleSet
+                .forEach(s -> System.out.println(s.getName()));
+
+        Map<Student.Sex, List<Student>> mapBySex = studentList.stream()
+                .collect(Collectors.groupingBy(Student::getSex));
+//        mapBySex.get(Student.Sex.MALE).stream().forEach(System.out::println);
+    }
+
     public static void main(String[] args) {
         PracticeStream practiceStream = new PracticeStream();
 //        practiceStream.practiceStr1();
 //        practiceStream.practiceStrFor();
 //        practiceStream.practiceStrM();
-        practiceStream.handlingStream();
+//        practiceStream.handlingStream();
 //        practiceStream.returnNum();
 //        practiceStream.filtering();
         //practiceStream.doFlatMapping();
         //practiceStream.doMapping();
 //        practiceStream.doLooping();
+//        practiceStream.doCustomize();
+        practiceStream.collectFilter();
     }
 }

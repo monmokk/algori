@@ -21,7 +21,7 @@ public class Camouflage {
         return Arrays.stream(clothes)
                 .collect(groupingBy(p -> p[1], mapping(p -> p[0], counting())))
                 .values()
-                .stream().reduce(1L, (x, y) -> x * (y + 1)).intValue() - 1;
+                .stream().reduce(1L, (x, y) -> x * (y+1)).intValue()-1;
         //.collect(reducing(1L, (x, y) -> x * (y + 1))).intValue() - 1;
     }
 
