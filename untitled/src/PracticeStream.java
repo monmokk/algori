@@ -1,5 +1,6 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class PracticeStream {
@@ -58,6 +59,28 @@ public class PracticeStream {
         stream.forEach(student -> System.out.println(student.getName()));
     }
 
+    public int sum;
+
+    void returnNum() {
+       // int sum = 0;
+        IntStream stream = IntStream.rangeClosed(1, 100);
+        stream.forEach(value -> sum += value);
+
+        System.out.println(sum);
+    }
+
+    void filtering() {
+        List<String> names = Arrays.asList(
+                "정꾸꾸", "김꾸꾸", "퐁꾸꾸", "명꾸꾸", "정퐁"
+        );
+        names.stream()
+                .distinct()
+                .forEach(System.out::println);
+
+        names.stream()
+                .filter(n -> n.startsWith("정"))
+                .forEach(System.out::println);
+    }
 
     public static void main(String[] args) {
         PracticeStream practiceStream = new PracticeStream();
@@ -65,5 +88,7 @@ public class PracticeStream {
         practiceStream.practiceStrFor();
         practiceStream.practiceStrM();
         practiceStream.handlingStream();
+        practiceStream.returnNum();
+        practiceStream.filtering();
     }
 }
