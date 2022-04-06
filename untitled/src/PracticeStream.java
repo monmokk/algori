@@ -1,5 +1,7 @@
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
+import java.util.OptionalDouble;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
@@ -47,12 +49,21 @@ public class PracticeStream {
                 new Student("꾸꾸", 100)
         );
 
-        double avg = students.stream()
+//        double avg = students.stream()
+//                //학생 객체 숫자로 매핑
+//                .mapToInt(Student::getScore)
+//                //최종처리
+//                .average()
+//                .getAsDouble();
+
+        OptionalDouble avg = students.stream()
                 //학생 객체 숫자로 매핑
                 .mapToInt(Student::getScore)
                 //최종처리
-                .average()
-                .getAsDouble();
+                .average();
+        if (avg.isPresent()) System.out.println(avg.getAsDouble());
+        else System.out.println("으음");
+
         System.out.println(avg);
 
         Stream<Student> stream = students.stream();
@@ -82,13 +93,71 @@ public class PracticeStream {
                 .forEach(System.out::println);
     }
 
+    void doFlatMapping() {
+        List<String> list = Arrays.asList(
+                "정포동 퐁포포포퐁", "스페이스바 구분 중"
+        );
+
+        list.stream()
+                .flatMap(data -> Arrays.stream(data.split(" ")))
+                .forEach(System.out::println);
+
+        List<String> list1 = Arrays.asList("10, 20, 30", "40, 50, 60");
+        list1.stream()
+                .flatMapToInt(data -> {
+                    String[] strings = data.split(",");
+                    int[] ints = new int[strings.length];
+                    for (int i = 0; i < strings.length; i++) {
+                        ints[i] = Integer.parseInt(strings[i].trim());
+                    }
+                    return Arrays.stream(ints);
+                })
+                .forEach(System.out::println);
+    }
+
+    void doMapping() {
+        List<Student> students = Arrays.asList(
+                new Student("정꾸꾸", 100),
+                new Student("정퐁퐁", 20),
+                new Student("강몽", 100)
+        );
+
+        students.stream()
+                .mapToInt(Student::getScore)
+                .forEach(System.out::println);
+    }
+
+    void doLooping() {
+        int[] ints = {1, 2, 3, 4, 5};
+
+        System.out.println("peek을 마지막에 호출한 경우");
+//        Arrays.stream(ints)
+//                .filter(a -> a % 2 == 0)
+//                .peek(System.out::println); // 처리 되지 않음. peek은 중간처리 메소드
+
+        System.out.println("최종 처리 메소드를 마지막에 호출한 경우");
+        int total = Arrays.stream(ints)
+                .filter(a -> a % 2 == 0)
+                .peek(System.out::println)
+                .sum();
+        System.out.println("총합: " + total); // 뒤에 sum()등 다른 메서드가 와야 처리 가능
+
+        System.out.println("forEach 마지막에 호출");
+        Arrays.stream(ints)
+                .filter(a -> a%2 == 0)
+                .forEach(System.out::println); //forEach()는 최종메서드
+    }
+
     public static void main(String[] args) {
         PracticeStream practiceStream = new PracticeStream();
-        practiceStream.practiceStr1();
-        practiceStream.practiceStrFor();
-        practiceStream.practiceStrM();
+//        practiceStream.practiceStr1();
+//        practiceStream.practiceStrFor();
+//        practiceStream.practiceStrM();
         practiceStream.handlingStream();
-        practiceStream.returnNum();
-        practiceStream.filtering();
+//        practiceStream.returnNum();
+//        practiceStream.filtering();
+        //practiceStream.doFlatMapping();
+        //practiceStream.doMapping();
+//        practiceStream.doLooping();
     }
 }

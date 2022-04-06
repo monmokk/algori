@@ -25,6 +25,8 @@ public class Camouflage {
         //.collect(reducing(1L, (x, y) -> x * (y + 1))).intValue() - 1;
     }
 
+
+
     public static void main(String[] args) {
         Camouflage camouflage = new Camouflage();
         String[][] clothes = {{"yellowhat", "headgear"}, {"bluesunglasses", "eyewear"}, {"green_turban", "headgear"}};
