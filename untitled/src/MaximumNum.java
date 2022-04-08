@@ -13,7 +13,8 @@ public class MaximumNum {
         arrayList.sort((a, b) -> (b + a).compareTo(a + b));
         if (arrayList.get(0).startsWith("0")) return "0";
         for (String s:arrayList) {
-            //answer += s; 아래꺼는 StringBuilder이용. 문자열을 합칠때는 빌더가 더 성능이 좋답니다
+            //answer += s; 아래꺼는 StringBuilder이용.
+            //문자열을 합칠때는 빌더가 더 성능이 좋답니다
             answer.append(s);
         }
 
