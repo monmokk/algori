@@ -193,6 +193,45 @@ public class PracticeStream {
 //        mapBySex.get(Student.Sex.MALE).stream().forEach(System.out::println);
     }
 
+
+    public static class Music implements Comparable<Music> {
+        private final String genre;
+        private final int played;
+        private final int id;
+
+        public Music(String genre, int played, int id) {
+            this.genre = genre;
+            this.played = played;
+            this.id = id;
+        }
+
+        @Override
+        public int compareTo(Music other) {
+            if (this.played == other.played) return this.id - other.id;
+            return other.played - this.played;
+        }
+
+        public String getGenre() {
+            return genre;
+        }
+    }
+
+    public int sum(List<Music> val) {
+        int answer = 0;
+        for (Music music : val) {
+            answer += music.played;
+        }
+        return answer;
+    }
+    public int[] solution(String[] genres, int[] plays) {
+        return IntStream.range(0, genres.length)
+                .mapToObj(i -> new Music(genres[i], plays[i], i))
+                .collect(Collectors.groupingBy(Music::getGenre))
+                .entrySet().stream()
+                .sorted((a, b) -> sum(b.getValue()) - sum(a.getValue()))
+                .flatMap(x -> x.getValue().stream().sorted().limit(2))
+                .mapToInt(x->x.id).toArray();
+    }
     public static void main(String[] args) {
         PracticeStream practiceStream = new PracticeStream();
 //        practiceStream.practiceStr1();
@@ -206,5 +245,9 @@ public class PracticeStream {
 //        practiceStream.doLooping();
 //        practiceStream.doCustomize();
         practiceStream.collectFilter();
+        String[] genres = {"classic", "pop", "classic", "classic", "pop"};
+        int[] plays = {500, 600, 150, 800, 2500};
+        String answer = Arrays.toString(practiceStream.solution(genres, plays));
+        System.out.println(answer);
     }
 }
