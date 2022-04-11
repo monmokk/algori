@@ -247,6 +247,7 @@ public class PracticeStream {
         practiceStream.collectFilter();
         String[] genres = {"classic", "pop", "classic", "classic", "pop"};
         int[] plays = {500, 600, 150, 800, 2500};
+
         String answer = Arrays.toString(practiceStream.solution(genres, plays));
         System.out.println(answer);
     }
