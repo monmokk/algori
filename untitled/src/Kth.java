@@ -25,6 +25,7 @@ public class Kth {
             Arrays.sort(tmp);
             answer[i] = tmp[commands[i][2]-1];
         }
+
         return answer;
     }
 
