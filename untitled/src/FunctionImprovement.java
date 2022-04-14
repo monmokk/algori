@@ -51,6 +51,18 @@ public class FunctionImprovement {
         return answer.stream().mapToInt(Integer::intValue).toArray();
     }
 
+    public int[] progressiveSolution(int[] progresses, int[] speeds) {
+        int[] dayOfEnd = new int[100];
+        int day = -1;
+        for (int i = 0; i < progresses.length; i++) {
+            while (progresses[i] + (day * speeds[i]) < 100) {
+                day++;
+            }
+            dayOfEnd[day]++;
+        }
+        return Arrays.stream(dayOfEnd).filter(i -> i != 0).toArray();
+    }
+
     public static void main(String[] args) {
 
         FunctionImprovement functionImprovement = new FunctionImprovement();
@@ -60,16 +72,19 @@ public class FunctionImprovement {
 
         String str = Arrays.toString(functionImprovement.solution(progresses, speeds));
         String qStr = Arrays.toString(functionImprovement.queueSolution(progresses, speeds));
+        String pStr = Arrays.toString(functionImprovement.progressiveSolution(progresses, speeds));
         System.out.println(str);
         System.out.println(qStr);
+        System.out.println(pStr);
 
         progresses = new int[]{95, 90, 99, 99, 80, 99};
         speeds = new int[]{1, 1, 1, 1, 1, 1};
 
         str = Arrays.toString(functionImprovement.solution(progresses, speeds));
         qStr = Arrays.toString(functionImprovement.queueSolution(progresses, speeds));
+        pStr = Arrays.toString(functionImprovement.progressiveSolution(progresses, speeds));
         System.out.println(str);
         System.out.println(qStr);
-
+        System.out.println(pStr);
     }
 }
