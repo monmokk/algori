@@ -78,8 +78,10 @@ public class ExpressN {
 
         System.out.println(expressN.solution(n, number));
         System.out.println(expressN.dpSolution(n,number));
+
         n = 2;
         number = 11;
+
         System.out.println(expressN.solution(n, number));
         System.out.println(expressN.dpSolution(n,number));
     }
