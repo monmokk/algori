@@ -35,8 +35,10 @@ public class ExpressN {
         }
     }
 
+    // TODO: 2022/04/17
     public int dpSolution(int N, int number) {
         int answer = -1;
+        // ****** 확인되지 않은 대입. java.util.Set[]을 java.util.Set<java.lang.Integer>[]에...? 해결 방법은?
         Set<Integer>[] sets = new Set[9];
         int t = N;
         for (int i = 1; i < 9 ; i++) {
