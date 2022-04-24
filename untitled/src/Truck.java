@@ -28,9 +28,11 @@ public class Truck {
 
         int currentWeight = 0;
 
+
         while (!waitQ.isEmpty() || !moveQ.isEmpty()) {
             answer++;
 
+            //다리 위에 트럭 없음 - 대기큐 제거, 다리위로
             if (moveQ.isEmpty()) {
                 SubTruck truck = waitQ.poll();
                 currentWeight += truck.weight;
@@ -42,6 +44,7 @@ public class Truck {
                 truck.moving();
             }
 
+            //다리 위 트럭이 다리 길이보다 큼 - 다리 이동 트럭 제거.
             if (Objects.requireNonNull(moveQ.peek()).move > bridge_length) {
                 SubTruck truck = moveQ.poll();
                 currentWeight -= truck.weight;
