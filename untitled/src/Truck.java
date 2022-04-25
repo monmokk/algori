@@ -44,11 +44,13 @@ public class Truck {
                 truck.moving();
             }
 
+
             //다리 위 트럭이 다리 길이보다 큼 - 다리 이동 트럭 제거.
             if (Objects.requireNonNull(moveQ.peek()).move > bridge_length) {
                 SubTruck truck = moveQ.poll();
                 currentWeight -= truck.weight;
             }
+
 
             if (!waitQ.isEmpty() && currentWeight + waitQ.peek().weight <= weight) {
                 SubTruck truck = waitQ.poll();
@@ -56,9 +58,10 @@ public class Truck {
                 moveQ.offer(truck);
             }
         }
-
         return answer;
     }
+
+
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int answer = 0;
         Queue<Integer> queue = new LinkedList<>();
@@ -92,11 +95,14 @@ public class Truck {
         return answer;
     }
 
+
     public static void main(String[] args) {
         Truck truck = new Truck();
+
         int bridge_length = 2;
         int weight = 10;
         int[] truck_weights = {7, 4, 5, 6};
+
         System.out.println(truck.solution(bridge_length, weight, truck_weights));
         System.out.println(truck.progressiveSolution(bridge_length, weight, truck_weights));
     }
