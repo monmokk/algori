@@ -16,9 +16,9 @@ public class Truck {
             move++;
         }
     }
+
     public int progressiveSolution(int bridge_length, int weight, int[] truck_weights) {
         int answer = 0;
-
         Queue<SubTruck> waitQ = new LinkedList<>();
         Queue<SubTruck> moveQ = new LinkedList<>();
 
@@ -28,10 +28,8 @@ public class Truck {
 
         int currentWeight = 0;
 
-
         while (!waitQ.isEmpty() || !moveQ.isEmpty()) {
             answer++;
-
             //다리 위에 트럭 없음 - 대기큐 제거, 다리위로
             if (moveQ.isEmpty()) {
                 SubTruck truck = waitQ.poll();
@@ -43,14 +41,11 @@ public class Truck {
             for (SubTruck truck : moveQ) {
                 truck.moving();
             }
-
-
             //다리 위 트럭이 다리 길이보다 큼 - 다리 이동 트럭 제거.
             if (Objects.requireNonNull(moveQ.peek()).move > bridge_length) {
                 SubTruck truck = moveQ.poll();
                 currentWeight -= truck.weight;
             }
-
 
             if (!waitQ.isEmpty() && currentWeight + waitQ.peek().weight <= weight) {
                 SubTruck truck = waitQ.poll();
@@ -61,7 +56,6 @@ public class Truck {
         return answer;
     }
 
-
     public int solution(int bridge_length, int weight, int[] truck_weights) {
         int answer = 0;
         Queue<Integer> queue = new LinkedList<>();
@@ -69,20 +63,26 @@ public class Truck {
         int time = 0;
 
         for (int i : truck_weights) {
+
             while (true) {
+
                 if (queue.isEmpty()) { // 다리에 트럭 없
                     queue.offer(i);
                     totalWeight += i;
                     time++;
                     break;
+
                 } else if (queue.size() == bridge_length) { //다리에 트럭 들어갈 자리가 없음
                     totalWeight -= queue.poll();
+
                 } else { // 다리에 자리 있음.
+
                     if (weight >= totalWeight + i) {
                         queue.offer(i);
                         totalWeight += i;
                         time++;
                         break;
+
                     } else { // 무게초과
                         queue.offer(0);
                         time++;
@@ -98,7 +98,6 @@ public class Truck {
 
     public static void main(String[] args) {
         Truck truck = new Truck();
-
         int bridge_length = 2;
         int weight = 10;
         int[] truck_weights = {7, 4, 5, 6};
